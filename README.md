@@ -1,7 +1,17 @@
 # Ursina-Projects
 Projects of mine that are using the Ursina Engine
 
-## Installation
+## Ursina Installation
+
+1. Make sure you are running Python 3.6 or newer.
+
+*I am using pip to install in several instances. If you want to install pip, run the following code:*
+
+`sudo apt-get install python3-pip python-dev`
+
+2. Install ursina
+
+`pip3 install ursina`
 
 If you are getting this error when trying to install ursina:
 
