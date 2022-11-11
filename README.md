@@ -10,3 +10,4 @@ If you are getting this error when trying to install ursina:
     
 Try running the following line:
 `sudo apt install libjpeg-dev zlib1g zlib1g-dev`
+
