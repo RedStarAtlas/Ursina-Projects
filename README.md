@@ -11,6 +11,7 @@ Links I referenced:
 - https://www.ursinaengine.org/
 
 *Installing Poetry*
+*Have not installed this yet, but plan on to*
 
 - https://python-poetry.org/*
 
