@@ -1,7 +1,12 @@
 # Ursina-Projects
 Projects of mine that are using the Ursina Engine
 
+
 ## Ursina Installation
+Links I referenced:
+- https://www.ursinaengine.org/
+- https://python-poetry.org/
+
 
 1. Make sure you are running Python 3.6 or newer.
 
