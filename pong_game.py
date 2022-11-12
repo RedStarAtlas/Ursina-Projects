@@ -1,46 +1,96 @@
 # Created by RedStarAtlas
 
 from ursina import *
+from time import sleep
 
-class Main(Entity):
-    def __init__(self, **kwargs):
-        super().__init__(parent=camera.ui)
+app = Ursina(title='Pong Game!')
 
-    # Creates the paddles
-    left_paddle = Entity(scale = (.1, 2), x = -.75, model = 'quad', origin_x = .5, collider = 'box')
-    right_paddle = Entity(scale = (.1, 2), x = .75, model = 'quad', origin_x = -.5, collider = 'box')
-    
-    # Creates the four walls
-    floor = Entity(model='quad', y=-.5, origin_y=.5, collider='box', scale=(2,10), visible=False)
-    ceiling = Entity(model='quad', y=.5, origin_y=-.5, collider='box', scale=(2,10), visible=False)
-    left_wall = Entity(model='quad', x=-.5, origin_y=.5, collider='box', scale=(2,10), visible=False)
-    right_wall = Entity(model='quad', x=.5, origin_y=-.5, collider='box', scale=(2,10), visible=False)
-    
-    collision_cooldown = .15
-    ball = Entity(model='circle', scale=.2, collider='box', speed=0, collision_cooldown=collision_cooldown)
-    
-    def update():
-        ball.collision_cooldown -= time.dt
-        ball.position += ball.left * time.dt * ball.speed
+# Ping Pong Table
+table = Entity(model="cube", color=color.black, scale=(10, .5, 14), position=(0, 0, 0), texture='white_cube')
 
-        left_paddle.y += (held_keys['w'] - held_keys['s']) * time.dt * 1
-        right_paddle.y += (held_keys['up arrow'] - held_keys['down arrow']) * time.dt * 1
-    
-        if ball.collision_cooldown > 0:
-            return
+# The line/net of the table
+line = Entity(parent=table, color=color.white, model="quad", scale=(.88, .2, .1), position=(0, 3.5, -.2))
 
-        hit_info = ball.intersects()
-        if hit_info.hit:
-            ball.collision_cooldown = collision_cooldown
+#Player 1 paddle
+Player_1_paddle = Entity(parent=table, color=color.orange, model="cube", scale=(.2, .03, .05), position=(0, 3.7, .22), collider="box")
 
-    def input(key):
-        if key == 'space':
-            info_text.enabled = False
-            reset()
-    
-        if key == 't':
-            ball.speed += 5
-    
-    app = Ursina(title='Pong Game!')
+#Player 2 paddle
+Player_2_paddle = Entity(parent=table, color=color.orange, model="cube", scale=(.2, .03, .05), position=(0, 3.7, -.62), collider="box")
 
-    app.run()
+# Ping pong ball
+ball = Entity(parent=table, model="sphere", color=color.magenta, scale=.05, position=(0, 3.71, -.2), collider="box")
+
+# The camera angle the user sees the game as
+camera.position = (0, 15, -26)
+camera.rotation_x = 30
+
+# Resets the ball position
+def reset_ball():
+    ball.x = 0
+    ball.z = 0
+
+def update():
+    global dx, dz
+    global score_A, score_B
+    
+    # Player 1 controls
+    Player_1_paddle.x = Player_1_paddle.x + held_keys['right arrow'] * time.dt
+    Player_1_paddle.x = Player_1_paddle.x - held_keys['left arrow'] * time.dt
+
+    # Player 2 controls
+    Player_2_paddle.x = Player_2_paddle.x + held_keys['d'] * time.dt
+    Player_2_paddle.x = Player_2_paddle.x - held_keys['a'] * time.dt
+
+    # Ball control
+    ball.x = ball.x + time.dt*2 * dx
+    ball.z = ball.z + time.dt*2 * dz
+
+    # Ball Collision
+    hit_info = ball.intersects()
+
+    if hit_info.hit:
+        if hit_info.entity == Player_1_paddle or hit_info.entity == Player_2_paddle:
+            dz = -dz
+
+    # Table left and right border check
+    if abs(ball.x) > .4:
+        dx = -dx
+    
+    # Table floor and ceiling border check
+    if ball.z > .25:
+        score_B += 1
+        print_on_screen(f"Player 1: {score_A}, Player 2: {score_B}", position=(-.85, .45), scale=2, duration=1)
+
+        if score_B >= 10:
+            sleep(2)
+            exit()
+
+        reset_ball()
+
+    if ball.z < -.65:
+        score_A += 1
+        print_on_screen(f"Player 1: {score_A}, Player 2: {score_B}", position=(-.85, .45), scale=2, duration=1)
+
+        if score_A >= 10:
+            sleep(2)
+            exit()
+
+        reset_ball()
+
+    # Other
+    if held_keys['space']:
+        info_press.visible = False
+        dx = .1
+        dz = .2
+
+# UI
+Text(text="Player 1", scale=2, position=(-.1, .32))
+Text(text="Player 2", scale=2, position=(-.1, -.4))
+info_press = Text(text="Press [Space Bar] to start", scale=3, position=(.2, .4))
+
+score_A = 0
+score_B = 0
+dx = 0
+dz = 0
+
+app.run()
