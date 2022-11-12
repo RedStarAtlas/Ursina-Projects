@@ -27,7 +27,7 @@ camera.rotation_x = 30
 # Resets the ball position
 def reset_ball():
     ball.x = 0
-    ball.z = 0
+    ball.z = -.2
 
 def update():
     global dx, dz
@@ -77,16 +77,17 @@ def update():
 
         reset_ball()
 
-    # Other
     if held_keys['space']:
         info_press.visible = False
         dx = .1
         dz = .2
+        reset_ball()
 
 # UI
-Text(text="Player 1", scale=2, position=(-.1, .32))
-Text(text="Player 2", scale=2, position=(-.1, -.4))
-info_press = Text(text="Press [Space Bar] to start", scale=3, position=(.2, .4))
+Text(text="Player 1", scale=2, position=(-.09, .40))
+Text(text="Player 2", scale=2, position=(-.09, -.43))
+Text(text="Hold [Space Bar] to reset the hockey puck ", scale=1, position=(.45, .3))
+info_press = Text(text="Press [Space Bar] to start", scale=2, position=(.2, .4))
 
 score_A = 0
 score_B = 0
