@@ -6,7 +6,7 @@ from time import sleep
 app = Ursina()
 
 # Ping Pong Table
-table = Entity(model="cube", color=color.light_gray, scale=(10, .5, 14), position=(0, 0, 0), texture='white_cube')
+table = Entity(model="cube", color=color.light_gray, scale=(10, .5, 14), position=(0, 1, 0), texture='white_cube')
 
 # The line/net of the table
 line = Entity(parent=table, color=color.white, model="quad", scale=(.88, .2, .1), position=(0, 3.5, -.2))
@@ -34,12 +34,12 @@ def update():
     global score_A, score_B
     
     # Player 1 controls
-    Player_1_paddle.x = Player_1_paddle.x + held_keys['right arrow'] * time.dt
-    Player_1_paddle.x = Player_1_paddle.x - held_keys['left arrow'] * time.dt
+    Player_1_paddle.x = Player_1_paddle.x + held_keys['d'] * time.dt
+    Player_1_paddle.x = Player_1_paddle.x - held_keys['a'] * time.dt
 
     # Player 2 controls
-    Player_2_paddle.x = Player_2_paddle.x + held_keys['d'] * time.dt
-    Player_2_paddle.x = Player_2_paddle.x - held_keys['a'] * time.dt
+    Player_2_paddle.x = Player_2_paddle.x + held_keys['right arrow'] * time.dt
+    Player_2_paddle.x = Player_2_paddle.x - held_keys['left arrow'] * time.dt
 
     # Ball control
     ball.x = ball.x + time.dt*2 * dx
@@ -84,10 +84,12 @@ def update():
         reset_ball()
 
 # UI
-Text(text="Player 1", scale=2, position=(-.09, .40))
-Text(text="Player 2", scale=2, position=(-.09, -.43))
-Text(text="Hold [Space Bar] to reset the hockey puck ", scale=1, position=(.45, .3))
-info_press = Text(text="Press [Space Bar] to start", scale=2, position=(.2, .4))
+Text(text = "Player 1", scale = 2, position = (-.09, .47))
+Text(text = "Use Keys [A] and [D]", scale = 1, position = (-.11, .4))
+Text(text = "Player 2", scale = 2, position = (-.09, -.4))
+Text(text = "Use Keys [left arrow] and [right arrow]", scale = 1, position = (-.21, -.35))
+Text(text = "Hold [Space Bar] to reset the hockey puck ", scale = 1, position = (.45, .3))
+info_press = Text(text = "Press [Space Bar] to start", scale = 2, position = (.2, .4))
 
 score_A = 0
 score_B = 0
