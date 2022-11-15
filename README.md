@@ -46,4 +46,5 @@ Try running the following line:
 ## Screenshots of the Working Games
 
 ### Ping Pong Game (ping_pong_game.py)
-![hocky game prototype](https://user-images.githubusercontent.com/85701392/201839633-b71d57e8-8c75-416e-b32d-7d5cc734943e.PNG)
+
+![hocky game prototype](https://user-images.githubusercontent.com/85701392/201929189-2e6a81c5-48c1-4331-9b03-a59d41d0ea3a.PNG)
