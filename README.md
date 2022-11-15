@@ -42,3 +42,8 @@ Try running the following line:
 
 `sudo apt install libjpeg-dev zlib1g zlib1g-dev`
 
+
+## Screenshots of the Working Games
+
+### Ping Pong Game (ping_pong_game.py)
+![hocky game prototype](https://user-images.githubusercontent.com/85701392/201839633-b71d57e8-8c75-416e-b32d-7d5cc734943e.PNG)
