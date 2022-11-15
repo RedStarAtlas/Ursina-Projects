@@ -3,7 +3,7 @@
 from ursina import *
 from time import sleep
 
-app = Ursina(title='Pong Game!')
+app = Ursina()
 
 # Ping Pong Table
 table = Entity(model="cube", color=color.light_gray, scale=(10, .5, 14), position=(0, 0, 0), texture='white_cube')
