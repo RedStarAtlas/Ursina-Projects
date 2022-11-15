@@ -6,19 +6,19 @@ from time import sleep
 app = Ursina(title='Pong Game!')
 
 # Ping Pong Table
-table = Entity(model="cube", color=color.black, scale=(10, .5, 14), position=(0, 0, 0), texture='white_cube')
+table = Entity(model="cube", color=color.light_gray, scale=(10, .5, 14), position=(0, 0, 0), texture='white_cube')
 
 # The line/net of the table
 line = Entity(parent=table, color=color.white, model="quad", scale=(.88, .2, .1), position=(0, 3.5, -.2))
 
 #Player 1 paddle
-Player_1_paddle = Entity(parent=table, color=color.orange, model="cube", scale=(.2, .03, .05), position=(0, 3.7, .22), collider="box")
+Player_1_paddle = Entity(parent=table, color=color.blue, model="cube", scale=(.2, .03, .05), position=(0, 3.7, .22), collider="box")
 
 #Player 2 paddle
-Player_2_paddle = Entity(parent=table, color=color.orange, model="cube", scale=(.2, .03, .05), position=(0, 3.7, -.62), collider="box")
+Player_2_paddle = Entity(parent=table, color=color.blue, model="cube", scale=(.2, .03, .05), position=(0, 3.7, -.62), collider="box")
 
 # Ping pong ball
-ball = Entity(parent=table, model="sphere", color=color.magenta, scale=.05, position=(0, 3.71, -.2), collider="box")
+ball = Entity(parent=table, model="sphere", color=color.magenta, scale=.05, position=(0, 3.71, -.2), collider="box", speed=0)
 
 # The camera angle the user sees the game as
 camera.position = (0, 15, -26)
